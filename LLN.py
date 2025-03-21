@@ -1,4 +1,4 @@
-import ipdb
+# import ipdb
 import torch
 from d2l import torch as d2l
 from torch.distributions import multinomial
@@ -17,3 +17,4 @@ if __name__ == "__main__":
     d2l.plt.gca().set_xlabel("Groups of experiments")
     d2l.plt.gca().set_ylabel("Estimated probability")
     d2l.plt.legend()
+    d2l.plt.show()
