@@ -29,33 +29,6 @@ ones(...)
 
 ## 泛型标注
 
-在 Python 3.9 之前，内置类型（如 `list`、`dict`、`tuple`）**不支持下标操作**，也就是说：
-
-```python
-list[int]  ❌ 报错（在 3.8 及更早版本）
-```
-
-所以我们才需要引入 `typing.List` 这种**专门的类型标注版本**。
-
----
-
-### 🎉 Python 3.9 改进了这一点：
-
-> 内置的容器类型（`list`、`dict`、`tuple` 等）开始支持类型注解的“下标”语法！
-
-也就是说，从 Python 3.9 开始，你可以这样写：
-
-```python
-def foo(data: list[int], mapping: dict[str, float]) -> tuple[int, float]:
-    ...
-```
-
-这背后的实现是：Python 的内置类型实现了 **`__class_getitem__`** 魔法方法，使得 `list[int]` 成为合法的表达式，等效于以前的 `typing.List[int]`。
-
----
-
-## ✅ 对比一下：
-
 | Python 版本 | 类型标注写法 | 是否支持 |
 |-------------|---------------|----------|
 | 3.8 及以前 | `List[int]`（from typing） | ✅ 支持 |
@@ -84,19 +57,4 @@ from typing import Optional
 def f(x: Optional[int]) -> Optional[str]:
     ...
 ```
-
 ---
-
-## 💡 总结
-
-| 特性 | Python 3.8 及以下 | Python 3.9+ |
-|------|-------------------|-------------|
-| 类型标注 | `List[int]`, `Dict[str, float]` | `list[int]`, `dict[str, float]` |
-| 写法简洁 | ❌ | ✅ |
-| 推荐方式 | 使用 `typing` | 使用小写内建类型 |
-
----
-
-如果你平时写代码时希望兼容旧版本，可以继续用 `typing.List`。但如果你确定 Python >= 3.9，完全可以用小写类型，简单、优雅、现代。
-
-需要我帮你判断你的代码环境是不是 3.9+，或者搞一个向后兼容的写法示例也可以哈～
