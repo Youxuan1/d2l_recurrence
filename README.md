@@ -2,12 +2,16 @@
 To record my personal learning progress of this book.
 
 ## Function Parameters
-help(torch.ones)
+```python
+->help(torch.ones)
+
 Help on built-in function ones in module torch:
 ones(...)
     ones(*size, *, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=False) -> Tensor
     
     Returns a tensor filled with the scalar value `1`, with the shape defined
+
+```
 
 ①	位置参数（Positional）	a, b
 
