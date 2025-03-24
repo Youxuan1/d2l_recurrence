@@ -72,7 +72,7 @@ class LinearRegressionDataGenerator:
             ax.set_zlabel("y")
             plt.show()
         else:
-            print(f"⚠️ Cannot visualize data with {x_np.shape[1]}-dimensional features.")
+            print(f"Cannot visualize data with {x_np.shape[1]}-dimensional features.")
 
 
 if __name__ == "__main__":
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     generator = LinearRegressionDataGenerator(w, B, noise_std=0.01)
     X, y = generator.synthetic_data(1000)
 
-    print("✅ 2D 测试")
+    print("2D 测试")
     print("X shape:", X.shape)  # (1000, 2)
     print("y shape:", y.shape)  # (1000, 1)
 
