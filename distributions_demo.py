@@ -18,4 +18,6 @@ if __name__ == "__main__":
 
     fig, ax = plt.subplots(1, 1)
     ax.plot(x, y, "r-", lw=5, alpha=0.6, label="Normal Distribution")
+    ax.set_title("Some famous dist.")
+    ax.legend()
     plt.show()
