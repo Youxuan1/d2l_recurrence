@@ -36,7 +36,10 @@ class LinearRegressionDataGenerator:
         self.y = torch.matmul(self.x, self.weight) + self.bias
         self.y += torch.normal(0, self.noise_std, self.y.shape)
 
-        return self.x.detach().numpy(), self.y.reshape((-1, 1)).detach().numpy()
+        return (
+            self.x.cpu().detach().numpy(),
+            self.y.reshape((-1, 1)).cpu().detach().numpy(),
+        )
 
     def visualize(self) -> None:
         """
@@ -45,8 +48,8 @@ class LinearRegressionDataGenerator:
         if self.x is None or self.y is None:
             raise ValueError("Please generate data first using synthetic_data().")
 
-        x_np = self.x.detach().numpy()
-        y_np = self.y.detach().numpy()
+        x_np = self.x.cpu().detach().numpy()
+        y_np = self.y.cpu().detach().numpy()
 
         if x_np.shape[1] == 1:
             # 一维特征，画二维图
@@ -86,10 +89,10 @@ if __name__ == "__main__":
     generator.visualize()
 
     # 测试 2D 特征数据
-    weight = np.array([2.0, -3.4])  # 2个特征
-    bias = 4.2
+    w = np.array([2.0, -3.4])  # 2个特征
+    B = 4.2
 
-    generator = LinearRegressionDataGenerator(weight, bias, noise_std=0.01)
+    generator = LinearRegressionDataGenerator(w, B, noise_std=0.01)
     X, y = generator.synthetic_data(1000)
 
     print("✅ 2D 测试")
