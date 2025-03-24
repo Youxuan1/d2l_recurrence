@@ -32,3 +32,16 @@ class Timer:
     def cumsum(self) -> float:
         """Return accumulative runtime"""
         return np.array(self.times).cumsum().tolist()
+
+
+if __name__ == "__main__":
+    import torch
+
+    N = int(1e4)
+    a = torch.ones([N])
+    b = torch.ones([N])
+    c = torch.zeros(N)
+    timer = Timer()
+    for i in range(N):
+        c[i] = a[i] + b[i]
+    print(f"{timer.stop():.5f} sec")
