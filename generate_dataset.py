@@ -1,6 +1,7 @@
 """Define a class to generate data for linear regression."""
 
 import numpy as np
+from numpy.typing import NDArray
 import torch
 import matplotlib.pyplot as plt
 
@@ -12,27 +13,27 @@ class LinearRegressionDataGenerator:
 
     def __init__(
         self,
-        weight: np.ndarray[float],
-        bias: np.ndarray[float],
+        weight: NDArray[np.float32],
+        bias: NDArray[np.float32],
         noise_std: float = 0.01,
     ):
         """
         Initialize generator, w.r.t. weight, bias and noise std.
         """
-        self.weight = torch.Tensor(weight, dtype=torch.float32)
-        self.bias = torch.Tensor(bias, dtype=torch.float32)
+        self.weight = torch.tensor(weight, dtype=torch.float32)
+        self.bias = torch.tensor(bias, dtype=torch.float32)
         self.noise_std = noise_std
         self.x = None
         self.y = None
 
     def synthetic_data(
         self, num_examples: int
-    ) -> tuple[np.ndarray[float], np.ndarray[float]]:
+    ) -> tuple[NDArray[np.float32], NDArray[np.float32]]:
         """
         Generate data: y = Xw + b + noise
         """
         self.x = torch.normal(0, 1, (num_examples, len(self.weight)))
-        self.y = torch.mm(self.x, self.weight) + self.bias
+        self.y = torch.matmul(self.x, self.weight) + self.bias
         self.y += torch.normal(0, self.noise_std, self.y.shape)
 
         return self.x.detach().numpy(), self.y.reshape((-1, 1)).detach().numpy()
@@ -81,5 +82,18 @@ if __name__ == "__main__":
 
     print("X shape:", X.shape)
     print("y shape:", y.shape)
+
+    generator.visualize()
+
+    # 测试 2D 特征数据
+    weight = np.array([2.0, -3.4])  # 2个特征
+    bias = 4.2
+
+    generator = LinearRegressionDataGenerator(weight, bias, noise_std=0.01)
+    X, y = generator.synthetic_data(1000)
+
+    print("✅ 2D 测试")
+    print("X shape:", X.shape)  # (1000, 2)
+    print("y shape:", y.shape)  # (1000, 1)
 
     generator.visualize()
